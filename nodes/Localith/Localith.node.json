@@ -1,0 +1,20 @@
+
+{
+  "node": "n8n-nodes-localith.localith",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": ["Marketing", "Communication"],
+  "resources": {
+    "credentialDocumentation": [
+      {
+        "url": "https://embedsocial.com/app/api/documentation"
+      }
+    ],
+    "primaryDocumentation": [
+      {
+        "url": "https://embedsocial.com/app/api/documentation"
+      }
+    ]
+  },
+  "alias": ["reviews", "social proof", "ugc", "localith", "listings"]
+}
