@@ -25,7 +25,7 @@ export class LocalithApi implements ICredentialType {
     type: 'generic',
     properties: {
       headers: {
-        Authorization: '=Bearer {{$credentials.apiToken}}',
+        Authorization: '={{$credentials.apiToken}}',
       },
     },
   };

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
 
 # n8n-nodes-starter
@@ -245,3 +246,7 @@ Have suggestions for improving this starter? [Open an issue](https://github.com/
 ## License
 
 [MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+=======
+# n8n-nodes-localith
+n8n community node for Localith
+>>>>>>> d7ab00d42cde444b8bfc4378ea0f40c120c07c9e

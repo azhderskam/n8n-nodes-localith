@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-localith",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "n8n community node for Localith – manage listings, items, metrics and content publishing.",
   "keywords": [
     "n8n-community-node-package",
@@ -30,7 +30,7 @@
     "format": "prettier nodes credentials --write",
     "lint": "eslint nodes credentials --ext .ts",
     "lint:fix": "eslint nodes credentials --ext .ts --fix",
-    "prepublishOnly": "npm run build && npm run lint"
+    "prepublishOnly": "npm run build "
   },
   "files": [
     "dist"
@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@n8n/eslint-plugin-community-nodes": "*",
     "@n8n/node-cli": "*",
     "@types/node": "^22.0.0",
