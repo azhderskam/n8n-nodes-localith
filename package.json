@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-localith",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "n8n community node for Localith – manage listings, items, metrics and content publishing.",
   "keywords": [
     "n8n-community-node-package",

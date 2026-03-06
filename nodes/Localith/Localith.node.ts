@@ -1,4 +1,3 @@
-
 import {
   INodeType,
   INodeTypeDescription,
@@ -40,7 +39,7 @@ export class Localith implements INodeType {
         default: 'listing',
       },
 
-      // ITEM
+      // ─── ITEM ───────────────────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -51,7 +50,7 @@ export class Localith implements INodeType {
           {
             name: 'Get Many',
             value: 'getAll',
-            description: 'Retrieve the collection of items',
+            description: 'Retrieve the collection of items (reviews)',
             action: 'Get many items',
             routing: { request: { method: 'GET', url: '/rest/v1/items' } },
           },
@@ -59,7 +58,51 @@ export class Localith implements INodeType {
         default: 'getAll',
       },
 
-      // LISTING
+      // Item filters
+      {
+        displayName: 'Filters',
+        name: 'filters',
+        type: 'collection',
+        placeholder: 'Add Filter',
+        default: {},
+        displayOptions: { show: { resource: ['item'], operation: ['getAll'] } },
+        options: [
+          {
+            displayName: 'Page',
+            name: 'page',
+            type: 'number',
+            typeOptions: { minValue: 1 },
+            default: 1,
+            routing: { send: { type: 'query', property: 'page' } },
+          },
+          {
+            displayName: 'Page Size',
+            name: 'pageSize',
+            type: 'number',
+            typeOptions: { minValue: 1, maxValue: 100 },
+            default: 10,
+            routing: { send: { type: 'query', property: 'pageSize' } },
+          },
+          {
+            displayName: 'Source ID',
+            name: 'sourceId',
+            type: 'string',
+            default: '',
+            description: 'Filter by source ID(s). Comma-separated for multiple values',
+            routing: { send: { type: 'query', property: 'sourceId' } },
+          },
+          {
+            displayName: 'Sort',
+            name: 'sort',
+            type: 'string',
+            default: '',
+            description: 'Sort order. Use +fieldName for ascending, -fieldName for descending. E.g. "-originalCreatedOn,-id"',
+            routing: { send: { type: 'query', property: 'sort' } },
+          },
+        ],
+      },
+
+      // ─── LISTING ─────────────────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -102,6 +145,59 @@ export class Localith implements INodeType {
         default: 'getAll',
       },
 
+      // Listing filters (Get Many)
+      {
+        displayName: 'Filters',
+        name: 'filters',
+        type: 'collection',
+        placeholder: 'Add Filter',
+        default: {},
+        displayOptions: { show: { resource: ['listing'], operation: ['getAll'] } },
+        options: [
+          {
+            displayName: 'Page',
+            name: 'page',
+            type: 'number',
+            typeOptions: { minValue: 1 },
+            default: 1,
+            routing: { send: { type: 'query', property: 'page' } },
+          },
+          {
+            displayName: 'Page Size',
+            name: 'pageSize',
+            type: 'number',
+            typeOptions: { minValue: 1, maxValue: 100 },
+            default: 10,
+            routing: { send: { type: 'query', property: 'pageSize' } },
+          },
+          {
+            displayName: 'Name',
+            name: 'name',
+            type: 'string',
+            default: '',
+            description: 'Filter by listing name',
+            routing: { send: { type: 'query', property: 'name' } },
+          },
+          {
+            displayName: 'Address',
+            name: 'address',
+            type: 'string',
+            default: '',
+            description: 'Filter by listing address',
+            routing: { send: { type: 'query', property: 'address' } },
+          },
+          {
+            displayName: 'Sort',
+            name: 'sort',
+            type: 'string',
+            default: '',
+            description: 'Sort order. Use +fieldName for ascending, -fieldName for descending. E.g. "-originalCreatedOn,-id"',
+            routing: { send: { type: 'query', property: 'sort' } },
+          },
+        ],
+      },
+
+      // Listing ID (Get + Update)
       {
         displayName: 'Listing ID',
         name: 'listingId',
@@ -114,6 +210,7 @@ export class Localith implements INodeType {
         },
       },
 
+      // Update fields
       {
         displayName: 'Update Fields',
         name: 'updateFields',
@@ -132,11 +229,18 @@ export class Localith implements INodeType {
             routing: { send: { type: 'body', property: 'name' } },
           },
           {
-            displayName: 'Status',
-            name: 'status',
+            displayName: 'Website URL',
+            name: 'websiteUrl',
             type: 'string',
             default: '',
-            routing: { send: { type: 'body', property: 'status' } },
+            routing: { send: { type: 'body', property: 'websiteUrl' } },
+          },
+          {
+            displayName: 'Phone Number',
+            name: 'phoneNumber',
+            type: 'string',
+            default: '',
+            routing: { send: { type: 'body', property: 'phoneNumber' } },
           },
           {
             displayName: 'Description',
@@ -146,10 +250,33 @@ export class Localith implements INodeType {
             default: '',
             routing: { send: { type: 'body', property: 'description' } },
           },
+          {
+            displayName: 'Street Address',
+            name: 'streetLines',
+            type: 'string',
+            default: '',
+            description: 'Street address line',
+            routing: { send: { type: 'body', property: 'address.streetLines[0]' } },
+          },
+          {
+            displayName: 'City',
+            name: 'city',
+            type: 'string',
+            default: '',
+            routing: { send: { type: 'body', property: 'address.city' } },
+          },
+          {
+            displayName: 'Country',
+            name: 'country',
+            type: 'string',
+            default: '',
+            description: 'Country code, e.g. "MK"',
+            routing: { send: { type: 'body', property: 'address.country' } },
+          },
         ],
       },
 
-      // LISTING METRICS
+      // ─── LISTING METRICS ──────────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -170,7 +297,67 @@ export class Localith implements INodeType {
         default: 'getAll',
       },
 
-      // LISTING ITEM METRICS
+      // Listing Metrics required dates
+      {
+        displayName: 'Start Date',
+        name: 'startDate',
+        type: 'string',
+        required: true,
+        default: '',
+        placeholder: '25-08-2024',
+        description: 'Start date in DD-MM-YYYY format',
+        displayOptions: { show: { resource: ['listingMetrics'], operation: ['getAll'] } },
+        routing: { send: { type: 'query', property: 'startDate' } },
+      },
+      {
+        displayName: 'End Date',
+        name: 'endDate',
+        type: 'string',
+        required: true,
+        default: '',
+        placeholder: '24-08-2025',
+        description: 'End date in DD-MM-YYYY format',
+        displayOptions: { show: { resource: ['listingMetrics'], operation: ['getAll'] } },
+        routing: { send: { type: 'query', property: 'endDate' } },
+      },
+
+      // Listing Metrics optional filters
+      {
+        displayName: 'Filters',
+        name: 'filters',
+        type: 'collection',
+        placeholder: 'Add Filter',
+        default: {},
+        displayOptions: { show: { resource: ['listingMetrics'], operation: ['getAll'] } },
+        options: [
+          {
+            displayName: 'Source ID',
+            name: 'sourceId',
+            type: 'string',
+            default: '',
+            description: 'Optional source ID(s). Comma-separated for multiple values',
+            routing: { send: { type: 'query', property: 'sourceId' } },
+          },
+          {
+            displayName: 'Page',
+            name: 'page',
+            type: 'number',
+            typeOptions: { minValue: 1 },
+            default: 1,
+            routing: { send: { type: 'query', property: 'page' } },
+          },
+          {
+            displayName: 'Page Size',
+            name: 'pageSize',
+            type: 'number',
+            typeOptions: { minValue: 1, maxValue: 100 },
+            default: 10,
+            routing: { send: { type: 'query', property: 'pageSize' } },
+          },
+        ],
+      },
+
+      // ─── LISTING ITEM METRICS ─────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -191,7 +378,67 @@ export class Localith implements INodeType {
         default: 'getAll',
       },
 
-      // CONTENT PUBLISHING MEDIA
+      // Listing Item Metrics required dates
+      {
+        displayName: 'Start Date',
+        name: 'startDate',
+        type: 'string',
+        required: true,
+        default: '',
+        placeholder: '25-08-2024',
+        description: 'Start date in DD-MM-YYYY format',
+        displayOptions: { show: { resource: ['listingItemMetrics'], operation: ['getAll'] } },
+        routing: { send: { type: 'query', property: 'startDate' } },
+      },
+      {
+        displayName: 'End Date',
+        name: 'endDate',
+        type: 'string',
+        required: true,
+        default: '',
+        placeholder: '24-08-2025',
+        description: 'End date in DD-MM-YYYY format',
+        displayOptions: { show: { resource: ['listingItemMetrics'], operation: ['getAll'] } },
+        routing: { send: { type: 'query', property: 'endDate' } },
+      },
+
+      // Listing Item Metrics optional filters
+      {
+        displayName: 'Filters',
+        name: 'filters',
+        type: 'collection',
+        placeholder: 'Add Filter',
+        default: {},
+        displayOptions: { show: { resource: ['listingItemMetrics'], operation: ['getAll'] } },
+        options: [
+          {
+            displayName: 'Source ID',
+            name: 'sourceId',
+            type: 'string',
+            default: '',
+            description: 'Optional source ID(s). Comma-separated for multiple values',
+            routing: { send: { type: 'query', property: 'sourceId' } },
+          },
+          {
+            displayName: 'Page',
+            name: 'page',
+            type: 'number',
+            typeOptions: { minValue: 1 },
+            default: 1,
+            routing: { send: { type: 'query', property: 'page' } },
+          },
+          {
+            displayName: 'Page Size',
+            name: 'pageSize',
+            type: 'number',
+            typeOptions: { minValue: 1, maxValue: 100 },
+            default: 10,
+            routing: { send: { type: 'query', property: 'pageSize' } },
+          },
+        ],
+      },
+
+      // ─── CONTENT PUBLISHING MEDIA ─────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -216,6 +463,32 @@ export class Localith implements INodeType {
       },
 
       {
+        displayName: 'Type',
+        name: 'type',
+        type: 'options',
+        required: true,
+        default: 'update',
+        displayOptions: { show: { resource: ['contentPublishingMedia'], operation: ['publish'] } },
+        options: [
+          { name: 'Update', value: 'update' },
+          { name: 'Event', value: 'event' },
+          { name: 'Offer', value: 'offer' },
+        ],
+        routing: { send: { type: 'body', property: 'type' } },
+      },
+
+      {
+        displayName: 'Source IDs',
+        name: 'sourceIds',
+        type: 'string',
+        required: true,
+        default: '',
+        description: 'Comma-separated list of source IDs to publish to',
+        displayOptions: { show: { resource: ['contentPublishingMedia'], operation: ['publish'] } },
+        routing: { send: { type: 'body', property: 'sourceIds' } },
+      },
+
+      {
         displayName: 'Post Fields',
         name: 'postFields',
         type: 'collection',
@@ -226,63 +499,80 @@ export class Localith implements INodeType {
         },
         options: [
           {
-            displayName: 'Media URL',
-            name: 'media_url',
-            type: 'string',
-            default: '',
-            description: 'Public URL of the media to publish',
-            routing: { send: { type: 'body', property: 'media_url' } },
-          },
-          {
-            displayName: 'Caption',
-            name: 'caption',
+            displayName: 'Caption Text',
+            name: 'captionText',
             type: 'string',
             typeOptions: { rows: 3 },
             default: '',
-            routing: { send: { type: 'body', property: 'caption' } },
+            routing: { send: { type: 'body', property: 'captionText' } },
           },
           {
-            displayName: 'Scheduled At',
-            name: 'scheduled_at',
+            displayName: 'Image URLs',
+            name: 'imageUrls',
+            type: 'string',
+            default: '',
+            description: 'Comma-separated list of image URLs',
+            routing: { send: { type: 'body', property: 'imageUrls' } },
+          },
+          {
+            displayName: 'Scheduled On',
+            name: 'scheduledOn',
             type: 'dateTime',
             default: '',
             description: 'Leave empty to publish immediately',
-            routing: { send: { type: 'body', property: 'scheduled_at' } },
+            routing: { send: { type: 'body', property: 'scheduledOn' } },
           },
           {
-            displayName: 'Listing ID',
-            name: 'listing_id',
+            displayName: 'Title',
+            name: 'title',
             type: 'string',
             default: '',
-            routing: { send: { type: 'body', property: 'listing_id' } },
-          },
-        ],
-      },
-
-      // COMMON FILTERS
-      {
-        displayName: 'Filters',
-        name: 'filters',
-        type: 'collection',
-        placeholder: 'Add Filter',
-        default: {},
-        displayOptions: { show: { operation: ['getAll'] } },
-        options: [
-          {
-            displayName: 'Page',
-            name: 'page',
-            type: 'number',
-            typeOptions: { minValue: 1 },
-            default: 1,
-            routing: { send: { type: 'query', property: 'page' } },
+            routing: { send: { type: 'body', property: 'title' } },
           },
           {
-            displayName: 'Items Per Page',
-            name: 'itemsPerPage',
-            type: 'number',
-            typeOptions: { minValue: 1, maxValue: 100 },
-            default: 30,
-            routing: { send: { type: 'query', property: 'itemsPerPage' } },
+            displayName: 'CTA Type',
+            name: 'ctaType',
+            type: 'options',
+            default: 'book',
+            options: [
+              { name: 'Book', value: 'book' },
+              { name: 'Order', value: 'order' },
+              { name: 'Shop', value: 'shop' },
+              { name: 'Learn More', value: 'learn_more' },
+              { name: 'Sign Up', value: 'sign_up' },
+              { name: 'Call', value: 'call' },
+            ],
+            routing: { send: { type: 'body', property: 'ctaType' } },
+          },
+          {
+            displayName: 'CTA URL',
+            name: 'ctaUrl',
+            type: 'string',
+            default: '',
+            routing: { send: { type: 'body', property: 'ctaUrl' } },
+          },
+          {
+            displayName: 'Start Date',
+            name: 'startDate',
+            type: 'dateTime',
+            default: '',
+            description: 'Event/offer start date (UTC)',
+            routing: { send: { type: 'body', property: 'startDate' } },
+          },
+          {
+            displayName: 'End Date',
+            name: 'endDate',
+            type: 'dateTime',
+            default: '',
+            description: 'Event/offer end date (UTC)',
+            routing: { send: { type: 'body', property: 'endDate' } },
+          },
+          {
+            displayName: 'Voucher Code',
+            name: 'voucherCode',
+            type: 'string',
+            default: '',
+            routing: { send: { type: 'body', property: 'voucherCode' } },
           },
         ],
       },
