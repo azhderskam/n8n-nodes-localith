@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-localith",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "n8n community node for Localith – manage listings, items, metrics and content publishing.",
   "keywords": [
     "n8n-community-node-package",
@@ -42,8 +42,8 @@
     ],
     "nodes": [
       "dist/nodes/Localith/Localith.node.js"
-    ]
-  },
+    ],
+  "iconUrl": "file:dist/nodes/Localith/localith.svg"},
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@n8n/eslint-plugin-community-nodes": "*",
