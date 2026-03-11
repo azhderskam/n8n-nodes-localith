@@ -1,15 +1,27 @@
 {
   "name": "n8n-nodes-localith",
-  "version": "0.1.7",
-  "description": "n8n community node for Localith – manage listings, items, metrics and content publishing.",
-  "keywords": [
-    "n8n-community-node-package",
-    "localith",
-    "reviews",
-    "social proof",
-    "ugc",
-    "listings"
-  ],
+  "version": "0.1.8",
+ 
+"description": "n8n community node for Localith — access your Google Business reviews, listings, and location metrics. Build automations, dashboards, or your own reputation management platform.",
+"keywords": [
+  "n8n-community-node-package",
+  "n8n",
+  "localith",
+  "google business profile",
+  "google business api",
+  "gbp",
+  "reviews",
+  "google reviews",
+  "reputation management",
+  "listings",
+  "location management",
+  "review automation",
+  "multi-location",
+  "local seo",
+  "embedsocial",
+  "social proof"
+  
+],
   "license": "MIT",
   "homepage": "https://github.com/localith/n8n-nodes-localith",
   "author": {
