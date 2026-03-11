@@ -95,5 +95,5 @@ n8n-nodes-localith
 |---|---|
 | 🌐 Website | [localith.ai](https://localith.ai) |
 | 📦 npm | [n8n-nodes-localith](https://www.npmjs.com/package/n8n-nodes-localith) |
-| 💻 GitHub | [azhderskam/n8n-nodes-localith](https://github.com/azhderskam/n8n-nodes-localith) |
+| 💻 GitHub | [localithai/n8n-nodes-localith](https://github.com/localithai/n8n-nodes-localith) |
 | 📖 API Docs | [embedsocial.com/app/api/documentation](https://embedsocial.com/app/api/documentation) |
