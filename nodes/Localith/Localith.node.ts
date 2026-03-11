@@ -39,7 +39,7 @@ export class Localith implements INodeType {
         default: 'listing',
       },
 
-      // ─── ITEM ───────────────────────────────────────────────────────────────
+      // ─── ITEM ────────────────────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -57,8 +57,6 @@ export class Localith implements INodeType {
         ],
         default: 'getAll',
       },
-
-      // Item filters
       {
         displayName: 'Filters',
         name: 'filters',
@@ -102,7 +100,7 @@ export class Localith implements INodeType {
         ],
       },
 
-      // ─── LISTING ─────────────────────────────────────────────────────────────
+      // ─── LISTING ──────────────────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -144,8 +142,6 @@ export class Localith implements INodeType {
         ],
         default: 'getAll',
       },
-
-      // Listing filters (Get Many)
       {
         displayName: 'Filters',
         name: 'filters',
@@ -191,13 +187,11 @@ export class Localith implements INodeType {
             name: 'sort',
             type: 'string',
             default: '',
-            description: 'Sort order. Use +fieldName for ascending, -fieldName for descending. E.g. "-originalCreatedOn,-id"',
+            description: 'Sort order. Use +fieldName for ascending, -fieldName for descending',
             routing: { send: { type: 'query', property: 'sort' } },
           },
         ],
       },
-
-      // Listing ID (Get + Update)
       {
         displayName: 'Listing ID',
         name: 'listingId',
@@ -209,17 +203,13 @@ export class Localith implements INodeType {
           show: { resource: ['listing'], operation: ['get', 'update'] },
         },
       },
-
-      // Update fields
       {
         displayName: 'Update Fields',
         name: 'updateFields',
         type: 'collection',
         placeholder: 'Add Field',
         default: {},
-        displayOptions: {
-          show: { resource: ['listing'], operation: ['update'] },
-        },
+        displayOptions: { show: { resource: ['listing'], operation: ['update'] } },
         options: [
           {
             displayName: 'Name',
@@ -255,7 +245,6 @@ export class Localith implements INodeType {
             name: 'streetLines',
             type: 'string',
             default: '',
-            description: 'Street address line',
             routing: { send: { type: 'body', property: 'address.streetLines[0]' } },
           },
           {
@@ -289,15 +278,11 @@ export class Localith implements INodeType {
             value: 'getAll',
             description: 'Retrieve daily listing metrics summarized data',
             action: 'Get listing metrics',
-            routing: {
-              request: { method: 'GET', url: '/rest/v1/listing_metrics' },
-            },
+            routing: { request: { method: 'GET', url: '/rest/v1/listing_metrics' } },
           },
         ],
         default: 'getAll',
       },
-
-      // Listing Metrics required dates
       {
         displayName: 'Start Date',
         name: 'startDate',
@@ -320,8 +305,6 @@ export class Localith implements INodeType {
         displayOptions: { show: { resource: ['listingMetrics'], operation: ['getAll'] } },
         routing: { send: { type: 'query', property: 'endDate' } },
       },
-
-      // Listing Metrics optional filters
       {
         displayName: 'Filters',
         name: 'filters',
@@ -370,15 +353,11 @@ export class Localith implements INodeType {
             value: 'getAll',
             description: 'Retrieve reviews metrics summarized data',
             action: 'Get listing item metrics',
-            routing: {
-              request: { method: 'GET', url: '/rest/v1/listing_item_metrics' },
-            },
+            routing: { request: { method: 'GET', url: '/rest/v1/listing_item_metrics' } },
           },
         ],
         default: 'getAll',
       },
-
-      // Listing Item Metrics required dates
       {
         displayName: 'Start Date',
         name: 'startDate',
@@ -401,8 +380,6 @@ export class Localith implements INodeType {
         displayOptions: { show: { resource: ['listingItemMetrics'], operation: ['getAll'] } },
         routing: { send: { type: 'query', property: 'endDate' } },
       },
-
-      // Listing Item Metrics optional filters
       {
         displayName: 'Filters',
         name: 'filters',
@@ -461,7 +438,6 @@ export class Localith implements INodeType {
         ],
         default: 'publish',
       },
-
       {
         displayName: 'Type',
         name: 'type',
@@ -474,9 +450,9 @@ export class Localith implements INodeType {
           { name: 'Event', value: 'event' },
           { name: 'Offer', value: 'offer' },
         ],
+        description: 'The type of post to publish',
         routing: { send: { type: 'body', property: 'type' } },
       },
-
       {
         displayName: 'Source IDs',
         name: 'sourceIds',
@@ -485,18 +461,21 @@ export class Localith implements INodeType {
         default: '',
         description: 'Comma-separated list of source IDs to publish to',
         displayOptions: { show: { resource: ['contentPublishingMedia'], operation: ['publish'] } },
-        routing: { send: { type: 'body', property: 'sourceIds' } },
+        routing: {
+          send: {
+            type: 'body',
+            property: 'sourceIds',
+            value: '={{$value.split(",").map(s => s.trim()).filter(Boolean)}}',
+          },
+        },
       },
-
       {
         displayName: 'Post Fields',
         name: 'postFields',
         type: 'collection',
         placeholder: 'Add Field',
         default: {},
-        displayOptions: {
-          show: { resource: ['contentPublishingMedia'], operation: ['publish'] },
-        },
+        displayOptions: { show: { resource: ['contentPublishingMedia'], operation: ['publish'] } },
         options: [
           {
             displayName: 'Caption Text',
@@ -512,14 +491,20 @@ export class Localith implements INodeType {
             type: 'string',
             default: '',
             description: 'Comma-separated list of image URLs',
-            routing: { send: { type: 'body', property: 'imageUrls' } },
+            routing: {
+              send: {
+                type: 'body',
+                property: 'imageUrls',
+                value: '={{$value.split(",").map(u => u.trim()).filter(Boolean)}}',
+              },
+            },
           },
           {
             displayName: 'Scheduled On',
             name: 'scheduledOn',
             type: 'dateTime',
             default: '',
-            description: 'Leave empty to publish immediately',
+            description: 'Leave empty to publish immediately (UTC)',
             routing: { send: { type: 'body', property: 'scheduledOn' } },
           },
           {
@@ -557,7 +542,13 @@ export class Localith implements INodeType {
             type: 'dateTime',
             default: '',
             description: 'Event/offer start date (UTC)',
-            routing: { send: { type: 'body', property: 'startDate' } },
+            routing: {
+              send: {
+                type: 'body',
+                property: 'startDate',
+                value: '={{new Date($value).toISOString()}}',
+              },
+            },
           },
           {
             displayName: 'End Date',
@@ -565,7 +556,13 @@ export class Localith implements INodeType {
             type: 'dateTime',
             default: '',
             description: 'Event/offer end date (UTC)',
-            routing: { send: { type: 'body', property: 'endDate' } },
+            routing: {
+              send: {
+                type: 'body',
+                property: 'endDate',
+                value: '={{new Date($value).toISOString()}}',
+              },
+            },
           },
           {
             displayName: 'Voucher Code',
