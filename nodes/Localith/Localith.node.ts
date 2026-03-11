@@ -502,9 +502,10 @@ export class Localith implements INodeType {
           {
             displayName: 'Scheduled On',
             name: 'scheduledOn',
-            type: 'dateTime',
+            type: 'string',
             default: '',
-            description: 'Leave empty to publish immediately (UTC)',
+            placeholder: '2026-03-12T00:00:00Z',
+            description: 'When to publish. Leave empty to publish immediately. Format: 2026-03-12T00:00:00Z (UTC)',
             routing: { send: { type: 'body', property: 'scheduledOn' } },
           },
           {
@@ -539,30 +540,20 @@ export class Localith implements INodeType {
           {
             displayName: 'Start Date',
             name: 'startDate',
-            type: 'dateTime',
+            type: 'string',
             default: '',
-            description: 'Event/offer start date (UTC)',
-            routing: {
-              send: {
-                type: 'body',
-                property: 'startDate',
-                value: '={{new Date($value).toISOString()}}',
-              },
-            },
+            placeholder: '2026-03-12T00:00:00Z',
+            description: 'Event/offer start date. Format: 2026-03-12T00:00:00Z (UTC)',
+            routing: { send: { type: 'body', property: 'startDate' } },
           },
           {
             displayName: 'End Date',
             name: 'endDate',
-            type: 'dateTime',
+            type: 'string',
             default: '',
-            description: 'Event/offer end date (UTC)',
-            routing: {
-              send: {
-                type: 'body',
-                property: 'endDate',
-                value: '={{new Date($value).toISOString()}}',
-              },
-            },
+            placeholder: '2026-03-18T00:00:00Z',
+            description: 'Event/offer end date. Format: 2026-03-18T00:00:00Z (UTC)',
+            routing: { send: { type: 'body', property: 'endDate' } },
           },
           {
             displayName: 'Voucher Code',
