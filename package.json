@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-localith",
-  "version": "0.1.15",
+  "version": "0.1.16",
  
 "description": "n8n community node for Localith — access your Google Business reviews, listings, and location metrics. Build automations, dashboards, or your own reputation management platform.",
 "keywords": [
@@ -23,17 +23,17 @@
   
 ],
   "license": "MIT",
-  "homepage": "https://github.com/localith/n8n-nodes-localith",
+  "homepage": "https://github.com/localithai/n8n-nodes-localith",
   "author": {
     "name": "Localith",
-    "email": "support@localith.com"
+    "email": "support@localith.ai"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/localith/n8n-nodes-localith.git"
+    "url": "git+https://github.com/localithai/n8n-nodes-localith.git"
   },
   "bugs": {
-    "url": "https://github.com/localith/n8n-nodes-localith/issues"
+    "url": "https://github.com/localithai/n8n-nodes-localith/issues"
   },
   "main": "index.js",
   "scripts": {
