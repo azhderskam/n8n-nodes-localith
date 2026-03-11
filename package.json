@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-localith",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "n8n community node for Localith – manage listings, items, metrics and content publishing.",
   "keywords": [
     "n8n-community-node-package",
@@ -25,7 +25,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && cp nodes/Localith/localith.svg dist/nodes/Localith/localith.svg",
     "dev": "n8n-node dev",
     "format": "prettier nodes credentials --write",
     "lint": "eslint nodes credentials --ext .ts",
