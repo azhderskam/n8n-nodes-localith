@@ -7,7 +7,7 @@ export class Localith implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'Localith',
     name: 'localith',
-    icon: 'file:localith.png',
+    icon: 'file:localith.svg',
     group: ['transform'],
     version: 1,
     subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -30,16 +30,16 @@ export class Localith implements INodeType {
         type: 'options',
         noDataExpression: true,
         options: [
-          { name: 'Review', value: 'item' },
-          { name: 'Location', value: 'listing' },
-          { name: 'Location Performance Metrics', value: 'listingMetrics' },
-          { name: 'Review Metrics', value: 'listingItemMetrics' },
-          { name: 'Content Publishing', value: 'contentPublishingMedia' },
+          { name: 'Item', value: 'item' },
+          { name: 'Listing', value: 'listing' },
+          { name: 'Listing Metrics', value: 'listingMetrics' },
+          { name: 'Listing Item Metrics', value: 'listingItemMetrics' },
+          { name: 'Content Publishing Media', value: 'contentPublishingMedia' },
         ],
         default: 'listing',
       },
 
-      // ─── REVIEW (formerly Item) ───────────────────────────────────────────────
+      // ─── ITEM ────────────────────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -48,10 +48,10 @@ export class Localith implements INodeType {
         displayOptions: { show: { resource: ['item'] } },
         options: [
           {
-            name: 'Get All Reviews',
+            name: 'Get Many',
             value: 'getAll',
-            description: 'Retrieve all reviews across your locations',
-            action: 'Get all reviews',
+            description: 'Retrieve the collection of items (reviews)',
+            action: 'Get many items',
             routing: { request: { method: 'GET', url: '/rest/v1/items' } },
           },
         ],
@@ -100,7 +100,7 @@ export class Localith implements INodeType {
         ],
       },
 
-      // ─── LOCATION (formerly Listing) ──────────────────────────────────────────
+      // ─── LISTING ──────────────────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -109,17 +109,17 @@ export class Localith implements INodeType {
         displayOptions: { show: { resource: ['listing'] } },
         options: [
           {
-            name: 'Get All Locations',
+            name: 'Get Many',
             value: 'getAll',
-            description: 'Retrieve all your Google Business locations',
-            action: 'Get all locations',
+            description: 'Retrieve the collection of listings',
+            action: 'Get many listings',
             routing: { request: { method: 'GET', url: '/rest/v1/listings' } },
           },
           {
-            name: 'Get Location by ID',
+            name: 'Get',
             value: 'get',
-            description: 'Retrieve a single location by its ID',
-            action: 'Get location by ID',
+            description: 'Retrieve a single listing by ID',
+            action: 'Get a listing',
             routing: {
               request: {
                 method: 'GET',
@@ -128,10 +128,10 @@ export class Localith implements INodeType {
             },
           },
           {
-            name: 'Update Location',
+            name: 'Update',
             value: 'update',
-            description: 'Update a location by its ID',
-            action: 'Update a location',
+            description: 'Update a listing by ID',
+            action: 'Update a listing',
             routing: {
               request: {
                 method: 'PATCH',
@@ -171,7 +171,7 @@ export class Localith implements INodeType {
             name: 'name',
             type: 'string',
             default: '',
-            description: 'Filter by location name',
+            description: 'Filter by listing name',
             routing: { send: { type: 'query', property: 'name' } },
           },
           {
@@ -179,7 +179,7 @@ export class Localith implements INodeType {
             name: 'address',
             type: 'string',
             default: '',
-            description: 'Filter by location address',
+            description: 'Filter by listing address',
             routing: { send: { type: 'query', property: 'address' } },
           },
           {
@@ -193,12 +193,12 @@ export class Localith implements INodeType {
         ],
       },
       {
-        displayName: 'Location ID',
+        displayName: 'Listing ID',
         name: 'listingId',
         type: 'string',
         required: true,
         default: '',
-        description: 'The ID of the location',
+        description: 'The ID of the listing',
         displayOptions: {
           show: { resource: ['listing'], operation: ['get', 'update'] },
         },
@@ -265,7 +265,7 @@ export class Localith implements INodeType {
         ],
       },
 
-      // ─── LOCATION PERFORMANCE METRICS (formerly Listing Metrics) ─────────────
+      // ─── LISTING METRICS ──────────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -274,10 +274,10 @@ export class Localith implements INodeType {
         displayOptions: { show: { resource: ['listingMetrics'] } },
         options: [
           {
-            name: 'Get Location Performance Metrics',
+            name: 'Get Many',
             value: 'getAll',
-            description: 'Retrieve daily performance metrics per location (impressions, clicks, calls)',
-            action: 'Get location performance metrics',
+            description: 'Retrieve daily listing metrics summarized data',
+            action: 'Get listing metrics',
             routing: { request: { method: 'GET', url: '/rest/v1/listing_metrics' } },
           },
         ],
@@ -340,7 +340,7 @@ export class Localith implements INodeType {
         ],
       },
 
-      // ─── REVIEW METRICS (formerly Listing Item Metrics) ───────────────────────
+      // ─── LISTING ITEM METRICS ─────────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -349,10 +349,10 @@ export class Localith implements INodeType {
         displayOptions: { show: { resource: ['listingItemMetrics'] } },
         options: [
           {
-            name: 'Get Review Metrics',
+            name: 'Get Many',
             value: 'getAll',
-            description: 'Retrieve aggregated review metrics (ratings, trends) per location',
-            action: 'Get review metrics',
+            description: 'Retrieve reviews metrics summarized data',
+            action: 'Get listing item metrics',
             routing: { request: { method: 'GET', url: '/rest/v1/listing_item_metrics' } },
           },
         ],
@@ -415,7 +415,7 @@ export class Localith implements INodeType {
         ],
       },
 
-      // ─── CONTENT PUBLISHING ───────────────────────────────────────────────────
+      // ─── CONTENT PUBLISHING MEDIA ─────────────────────────────────────────────
       {
         displayName: 'Operation',
         name: 'operation',
@@ -424,10 +424,10 @@ export class Localith implements INodeType {
         displayOptions: { show: { resource: ['contentPublishingMedia'] } },
         options: [
           {
-            name: 'Publish / Schedule Post',
+            name: 'Publish / Schedule',
             value: 'publish',
-            description: 'Publish or schedule a post to your Google Business profiles',
-            action: 'Publish or schedule a post',
+            description: 'Publish or schedule content publishing media posts',
+            action: 'Publish or schedule a media post',
             routing: {
               request: {
                 method: 'POST',
